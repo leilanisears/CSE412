@@ -9,26 +9,26 @@ Relations will be edited as GUI is developed.
 CREATE TABLE Playlist(
   playlistID INT PRIMARY KEY,
   followers INT, 
-  ownerName VARCHAR(50) NOT NULL,
+  ownerName VARCHAR(50),
   dateCreated DATE,
-  playlistLink VARCHAR(100) NOT NULL
+  playlistLink VARCHAR(100)
 );
 
 CREATE TABLE Song(
   songID INT PRIMARY KEY,
-  artistName VARCHAR(50) NOT NULL,
-  songName VARCHAR(50) NOT NULL,
-  songLink VARCHAR(100) NOT NULL,
+  artistName VARCHAR(50),
+  songName VARCHAR(50),
+  songLink VARCHAR(100),
   duration INTERVAL HOUR TO MINUTE
 );
 
 CREATE TABLE UserEntity(
   userID INT PRIMARY KEY,
-  likes Playlist[],
-  shares Playlist[],
+  likes INT,
+  shares INT,
   playlistCount INT,
   country VARCHAR(50),
-  displayName VARCHAR(50) NOT NULL,
+  displayName VARCHAR(50),
   image VARCHAR(100),
-  playlists Playlist[]
+  playlists INT
 );
