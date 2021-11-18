@@ -20,6 +20,7 @@ cement==3.0.4
 certifi==2020.6.20
 cffi==1.14.3
 chardet==3.0.4
+charset-normalizer==2.0.7
 chrome-gnome-shell==0.0.0
 click==7.1.2
 colorama==0.4.3
@@ -172,7 +173,7 @@ rdflib-jsonld==0.5.0
 repolib==1.5.2
 repoman==1.4.0
 reportlab==3.5.47
-requests==2.24.0
+requests==2.26.0
 requests-unixsocket==0.2.0
 rich==10.12.0
 ROPGadget==6.5
@@ -190,6 +191,7 @@ six==1.15.0
 sortedcontainers==2.3.0
 soupsieve==2.0.1
 specan==0.0.0
+spotipy==2.19.0
 SQLAlchemy==1.4.7
 sqlparse==0.4.2
 statsd==3.3.0
@@ -206,7 +208,7 @@ ubuntu-advantage-tools==27.0
 ubuntu-drivers-common==0.0.0
 ufw==0.36
 unicorn==1.0.2rc3
-urllib3==1.25.10
+urllib3==1.26.7
 validators==0.18.2
 virtualenv==20.0.29+ds
 w3lib==1.22.0

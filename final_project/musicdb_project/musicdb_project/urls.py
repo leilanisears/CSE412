@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("playlists/", include("musicdb.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('register/', include("users.urls")),
+
 ]
 
 if settings.DEBUG:

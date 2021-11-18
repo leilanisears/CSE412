@@ -1,0 +1,11 @@
+<!-- template for login using the default django auth package -->
+{% load static %}
+<link rel="stylesheet" href="{% static '{{ STATIC_URL }}/css/base.css'}"
+
+<div class="login">
+  <h2>Log In</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+  <button type="submit" class="btn btn-primary btn-block btn-large">Log In</button>
+</form>

@@ -12,6 +12,8 @@ class UserEntity(models.Model):
     shares = models.ForeignKey('musicdb.Playlist', on_delete=models.CASCADE, related_name='playlists')
     playlist_count = models.IntegerField()
     country = models.TextField()
+    USERNAME_FIELD = models.TextField()
+    PASSWORD_FIELD = models.TextField()
     display_name = models.TextField()
     image = models.TextField()
     playlists = models.ForeignKey('musicdb.Playlist', on_delete=models.CASCADE)
