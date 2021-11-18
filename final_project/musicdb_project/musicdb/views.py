@@ -10,3 +10,7 @@ def playlist_detail(request, pk):
         "songs": song_objs,
     }
     return render(request, "playlist_detail.html", context)
+
+def welcome(request):
+    context = {}
+    return render(request, "welcome.html", context)
