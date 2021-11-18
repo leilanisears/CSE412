@@ -4,7 +4,15 @@
   <div class="mw6 center pa3 sans-serif">
     <h1 class="mb4">Username: {{ users.display_name | linebreaks }}</h1>
     <header class="b mb2">User ID: {{ users.user_id }}</header>
-  {% for s in songs %}
+  {% for p in playlists %}
     <div class="pa2 mb3 striped--near-white">
       <div class="pl2">
-        <p class="mb2">
+        <p class="mb2"> Owner: {{ p.owner_name }}</p>
+        <p class="mb2"> Date created: {{ p.date_created }}</p>
+        <p class="mb2"> Playlist link: {{ p.playlist_link }}</p>
+        <p class="mb2"> Songs: {{ p.songs }}</p>
+      </div>
+    </div>
+  {% endfor %}
+ </div>
+ {% endblock %}
