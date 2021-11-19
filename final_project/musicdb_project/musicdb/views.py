@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from musicdb.models import Playlist, Song
+
 # Create your views here.
 
 def playlist_detail(request, pk):

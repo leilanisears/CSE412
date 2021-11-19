@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
+from users.models import UserEntity
 
 # Create your views here.
 
@@ -16,3 +17,10 @@ def register_request(request):
         messages.error(request, "Registration was unsuccessful. Invalid information provided.")
     form = NewUserForm()
     return render(request,"register.html", context={"register_form":form})
+
+def profile(requeset, pk):
+    user_info = UserEntity.objects.get(user_id=pk)
+    user_data = {
+        "user_detail" : user_info
+    }
+    return render(request, 'profile.html', user_data)
