@@ -15,6 +15,6 @@ class UserEntity(models.Model):
     USERNAME_FIELD = models.TextField()
     PASSWORD_FIELD = models.TextField()
     display_name = models.TextField()
-    image = models.TextField()
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     playlists = models.ForeignKey('musicdb.Playlist', on_delete=models.CASCADE)
 

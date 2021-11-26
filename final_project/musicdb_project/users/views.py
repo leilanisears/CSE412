@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import NewUserForm
+from .forms import NewUserForm, UserEntityForm
 from django.contrib.auth import login
 from django.contrib import messages
 from users.models import UserEntity
@@ -18,9 +18,28 @@ def register_request(request):
     form = NewUserForm()
     return render(request,"register.html", context={"register_form":form})
 
-def profile(request, pk):
-    user_info = UserEntity.objects.get(user_id=pk)
-    user_data = {
-        "user_detail" : user_info
-    }
-    return render(request, 'profile.html', user_data)
+def display_profile(request, user_id):
+    user = get_object_or_404(UserEntity, id=user_id)
+
+    if request.user != user:
+        return HttpResponseForbidden()
+
+    if request.method == "GET":
+        data = {
+            "user": user
+        }
+
+        return render(request, 'display_profile.html', data)
+
+def edit_profile(request, user_id):
+    user = get_object_or_404(UserEntity, id=user_id)
+
+    if request.user != user:
+        return HttpResponseForbidden()
+
+    form = UserEntityForm(request.POST, instance=user)
+
+    if form.is_valid():
+        user.save()
+            return redirect('display_profile', request.user_id)
+

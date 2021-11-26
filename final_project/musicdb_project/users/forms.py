@@ -17,4 +17,7 @@ class NewUserForm(UserCreationForm):
         fields = ["USERNAME_FIELD", "display_name", "password1", "password2", "country"]
 
 
+class UserEntityForm(ModelForm):
+    class Meta:
+        fields = ['country', 'USERNAME_FIELD', 'PASSWORD_FIELD', 'display_name',]
 

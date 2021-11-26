@@ -56,6 +56,22 @@ def song_request(request):
 
     return render(request, "songrequest.html", context)
 
+def display_all(request, user_id):
+    user = get_object_or_404(UserEntity, id=user_id)
+
+    if request.user != user:
+        return HttpResponseForbidden()
+
+    playlists = Playlist.objects.get(owner_name=user.display_name)
+
+    if request.method == "GET":
+        data = {
+            'owner': user,
+            'playlists': playlists
+        }
+
+        return render(request, 'display_all.html', data)
+
 def display_playlists(request, user_id, playlist_id):
     user = get_object_or_404(UserEntity, id=user_id)
 
@@ -90,7 +106,7 @@ def create_playlist(request, userid):
 
     return render(request, 'create_form.html', data)
 
-def edit_playlist(request, userid, playlist_id):
+def edit_playlist(request, user_id, playlist_id):
     user = get_object_or_404(UserEntity, id=user_id)
     playlist = get_object_or_404(Playlist, id=playlist_id, user=user)
 
@@ -108,7 +124,13 @@ def edit_playlist(request, userid, playlist_id):
 
     return render('create_playlist', request.user_id)
 
+def delete(request, user_id, playlist_id):
+    user = get_object_or_404(UserEntity, id=user_id)
+    playlist = get_object_or_404(Playlist, id=playlist_id, user=user)
 
+    if request.user != playlist.user:
+        return HttpResponseForbidden()
 
+    playlist.delete()
 
-
+    return redirect('display_playlists', user_id)
