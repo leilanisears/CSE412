@@ -18,7 +18,7 @@ def register_request(request):
     form = NewUserForm()
     return render(request,"register.html", context={"register_form":form})
 
-def profile(requeset, pk):
+def profile(request, pk):
     user_info = UserEntity.objects.get(user_id=pk)
     user_data = {
         "user_detail" : user_info

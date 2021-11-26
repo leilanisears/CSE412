@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from musicdb.models import Playlist, Song
+from django.http import HTTPResponseRedirect
+from django.shortcut import render
+
+from django.forms import ModelForm
 
 # Create your views here.
 
@@ -15,3 +19,7 @@ def playlist_detail(request, pk):
 def welcome(request):
     context = {}
     return render(request, "welcome.html", context)
+
+def db_request(request):
+    if request.method == "POST":
+
