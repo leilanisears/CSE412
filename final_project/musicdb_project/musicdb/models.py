@@ -12,6 +12,7 @@ class Song(models.Model):
 
 class Playlist(models.Model):
     playlist_id = models.TextField(primary_key=True)
+    playlist_name = models.TextField()
     followers = models.IntegerField()
     owner_name = models.ForeignKey('users.UserEntity', on_delete=models.CASCADE)
     date_created = models.DateField()

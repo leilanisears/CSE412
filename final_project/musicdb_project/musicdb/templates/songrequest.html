@@ -1,0 +1,8 @@
+<h1> Request new song to be added to database! </h1>
+<form method="post">
+
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <button class="button" type="submit">Submit request.</button>
+</form>
