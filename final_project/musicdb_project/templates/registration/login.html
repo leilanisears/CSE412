@@ -1,11 +1,12 @@
-<!-- template for login using the default django auth package -->
-{% load static %}
-<link rel="stylesheet" href="{% static '{{ STATIC_URL }}/css/base.css'}"
+{% extends 'base.html' %}
 
-<div class="login">
-  <h2>Log In</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-  <button type="submit" class="btn btn-primary btn-block btn-large">Log In</button>
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<h2>Log In</h2>
+<form method="post">
+  {% csrf token %}
+  {{ form.as_p }}
+  <button type="submit">Log In</button>
 </form>
+{% endblock %}
