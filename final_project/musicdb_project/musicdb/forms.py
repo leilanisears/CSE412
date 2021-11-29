@@ -1,12 +1,10 @@
 from django import forms
-from .models import Song, Playlist
+from .models import Playlist
 
-class RequestForm(forms.ModelForm):
-    class Meta:
-        model = Song
-        exclude = ['track_id']
+"""
+name
+"""
 
-class PlaylistCreateForm(forms.ModelForm):
+class PlaylistForm(forms.ModelForm):
     class Meta:
-        model = Playlist
-        exclude = ['playlist_id', 'date_created', 'playlist_link', 'followers']
+        fields = ['playlist_name']
