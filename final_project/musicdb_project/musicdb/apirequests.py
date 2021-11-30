@@ -61,7 +61,7 @@ def get_track(token, track_id):
 
 # generates the html code for a Spotify play button for a specific track
 def generate_play_button(track_id):
-    html = f'<iframe src="https://open.spotify.com/embed/track/{track_id}?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>'
+    html = f"https://open.spotify.com/embed/track/{track_id}?utm_source=generator"
     return html
 
 

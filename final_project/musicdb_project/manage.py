@@ -3,7 +3,7 @@
 import os
 import sys
 import django
-import api_setup
+#import api_setup
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'musicdb_project.settings')
 django.setup()
@@ -16,7 +16,7 @@ def main():
     #os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'musicdb_project.settings')
     #django.setup()
 
-    api_setup.api_auth_setup()
+    #api_setup.api_auth_setup()
 
     try:
         from django.core.management import execute_from_command_line

@@ -18,6 +18,9 @@ class UserEntity(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     playlists = models.ForeignKey('musicdb.Playlist', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.display_name
+
 class UserFollowing(models.Model):
     user_id = models.ForeignKey("UserEntity", related_name="following", on_delete=models.CASCADE)
     following_user_id = models.ForeignKey("UserEntity", related_name="followers", on_delete=models.CASCADE)
@@ -25,4 +28,3 @@ class UserFollowing(models.Model):
 
     class Meta:
         unique_together = ['user_id', 'following_user_id']
-

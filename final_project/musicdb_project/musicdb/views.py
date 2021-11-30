@@ -9,7 +9,9 @@ from .forms import PlaylistForm
 
 from django.http import Http404, JsonResponse, HttpResponseForbidden
 
-import .apirequests
+from django.views.generic.list import ListView
+
+from . import apirequests
 import string, random
 
 #####################################################################

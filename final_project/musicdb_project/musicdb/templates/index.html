@@ -2,6 +2,9 @@
 
 <ul>
   {% for element in results %}
-    <li>{{ element }}</li>
+    <li><strong>{{ element.song_name }}</strong></li>
+    <p>Song ID: {{element.song_id}}</p>
+    <p>Artist: {{element.song_artists}}
+    <iframe src={{element.song_link}} width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
   {% endfor %}
 </ul>

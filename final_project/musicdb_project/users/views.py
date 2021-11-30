@@ -4,7 +4,7 @@ from django.contrib.auth import login
 from django.contrib import messages
 
 from users.models import UserEntity
-from musicdb.views import welcome
+#from musicdb.views import welcome
 
 # Create your views here.
 

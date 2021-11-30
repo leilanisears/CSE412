@@ -9,6 +9,9 @@ class Song(models.Model):
     song_name = models.TextField()
     song_link = models.TextField()
 
+    def __str__(self):
+        return self.song_name
+
 class Playlist(models.Model):
     playlist_id = models.TextField(primary_key=True)
     playlist_name = models.TextField()
@@ -17,3 +20,6 @@ class Playlist(models.Model):
     date_created = models.DateField()
     playlist_link = models.TextField()
     songs = models.ManyToManyField(Song)
+
+    def __str__(self):
+        return self.playlist_name
