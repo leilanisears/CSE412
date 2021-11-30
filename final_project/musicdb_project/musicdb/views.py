@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from musicdb.models import Playlist, Song, UserEntity
+from django.db.models import Q
+
+from musicdb.models import Playlist, Song
+from users.models import UserEntity
 
 from django.forms import ModelForm
-from .forms import RequestForm, PlaylistForm
+from .forms import PlaylistForm
 
 from django.http import Http404, JsonResponse, HttpResponseForbidden
 
@@ -19,14 +22,17 @@ def generate_playlist_id():
 
 def display_all_playlists(request, user_id):
     user = get_object_or_404(UserEntity, id=user_id)
-    user_playlists = user.playlists.all()
+    all_playlists = user.playlists.all()
 
     data = {
         'user': user,
-        'playlists': user_playlists,
+        'playlists': all_playlists
     }
 
-    return render(request, 'display_all.html', data)
+    return(render, 'display_all.html', data)
+
+def search(results):
+
 
 def create_playlist(request, user_id):
     user = get_object_or_404(UserEntity, id=user_id)
@@ -99,4 +105,4 @@ def edit_playlist(request, user_id):
         elif req_type == "delete":
             user.playlists.remove(playlist)
 
-        return redirect("display_all", request)
+        return redirect("display_all_playlists", request)

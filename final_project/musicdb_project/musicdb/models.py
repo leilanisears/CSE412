@@ -8,7 +8,6 @@ class Song(models.Model):
     artist_name = models.TextField()
     song_name = models.TextField()
     song_link = models.TextField()
-    duration = models.DurationField()
 
 class Playlist(models.Model):
     playlist_id = models.TextField(primary_key=True)
