@@ -5,7 +5,7 @@ from django.apps import apps
 
 class Song(models.Model):
     song_id = models.TextField(primary_key = True)
-    artist_name = models.TextField()
+    song_artists = models.TextField()
     song_name = models.TextField()
     song_link = models.TextField()
 
