@@ -7,6 +7,8 @@ from users.models import UserEntity
 from django.forms import ModelForm
 from .forms import PlaylistForm
 
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
 from django.http import Http404, JsonResponse, HttpResponseForbidden
 
 from django.views.generic import (
@@ -22,6 +24,10 @@ import string, random
 
 #####################################################################
 
+
+def about(request):
+    return render(request, "about.html", {'title': 'About'})
+
 class PlaylistView(ListView):
     model = Playlist
     template_name = 'home.html'
@@ -29,6 +35,18 @@ class PlaylistView(ListView):
     ordering = ['-date_updated']
     slug_url_kwarg = 'the_slug'
     slug_field = 'slug'
+
+class UserPlaylistView(ListView):
+    model = Playlist
+    template_name = 'display_all.html'
+    context_object_name = 'playlists'
+    ordering = ['-date_updated']
+    slug_url_kwarg = 'the_slug'
+    slug_field = 'slug'
+
+    def get_queryset(self):
+        user = get_object_or_404(UserEntity, user_id=self.kwargs.get('user_id'))
+        return Playlist.objects.filter(creator=user).order_by("-date_created")
 
 class PlaylistDetailView(DetailView):
     model = Playlist
@@ -38,16 +56,16 @@ class PlaylistDetailView(DetailView):
 
 class SearchPlaylistView(ListView):
     model = Playlist
-    template_name = 'search.html'
+    template_name = 'search_playlists.html'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = set(Playlist.objects.filter(Q(track_name__icontains=query) | Q(artist_name__icontains=query)))
+        object_list = set(Playlist.objects.filter(Q(playlist_name__icontains=query)))
         return object_list
 
 class SearchSongView(ListView):
     model = Song
-    template_name = 'search.html'
+    template_name = 'search_songs.html'
     context_name = 'all_results'
 
     def get_queryset(self):
@@ -85,6 +103,45 @@ class SearchSongView(ListView):
 
                 pass
 
+class PlaylistCreateView(LoginRequiredMixin, CreateView):
+    model = Playlist
+    fields = ('playlist_name')
+    template_name = 'playlist_create.html'
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
+
+class PlaylistUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Playlist
+    fields = ('playlist_name')
+    template_name = 'playlist_update.html'
+    slug_url_kwarg = 'the_slug'
+    slug_field = 'slug'
+
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        playlist = self.get_object()
+        if self.request.user == playlist.creator:
+            return True
+        return False
+
+class PlaylistDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Playlist
+    success_url = '/'
+    slug_url_kwarg = 'the_slug'
+    slug_field = 'slug'
+
+    def test_func(self):
+        playlist = self.get_object()
+        if self.request.user == playlist.creator:
+            return True
+        return False
+
+
 # generates a randomized string for the playlist_id (primary key) to be indexed
 # def generate_playlist_id():
 #     letters = string.ascii_letters
@@ -92,90 +149,86 @@ class SearchSongView(ListView):
 
 #     return ''.join(random.choice(letters) for i in range(20))
 
-def display_all_playlists(request, user_id):
-    user = get_object_or_404(UserEntity, id=user_id)
-    all_playlists = user.playlists.all()
+# def display_all_playlists(request, user_id):
+#     user = get_object_or_404(UserEntity, id=user_id)
+#     all_playlists = user.playlists.all()
 
-    data = {
-        'user': user,
-        'playlists': all_playlists
-    }
+#     data = {
+#         'user': user,
+#         'playlists': all_playlists
+#     }
 
-    return(render, 'display_all.html', data)
+#     return(render, 'display_all.html', data)
 
-def create_playlist(request, user_id):
-    user = get_object_or_404(UserEntity, id=user_id)
+# def create_playlist(request, user_id):
+#     user = get_object_or_404(UserEntity, id=user_id)
 
-    if request.user != user:
-        return HttpResponseForbidden()
+#     if request.user != user:
+#         return HttpResponseForbidden()
 
-    if request.method == "POST":
-        form = PlaylistForm(request.POST)
+#     if request.method == "POST":
+#         form = PlaylistForm(request.POST)
 
-        if form.is_valid():
-            form = PlaylistForm(request.POST)
+#         if form.is_valid():
+#             form = PlaylistForm(request.POST)
 
-            playlist = form.save(commit=False)
-            #playlist.playlist_id = generate_playlist_id()
-            playlist.save()
+#             playlist = form.save(commit=False)
+#             #playlist.playlist_id = generate_playlist_id()
+#             playlist.save()
 
-            user.playlists.add(playlist)
+#             user.playlists.add(playlist)
 
-            return redirect('playlists.html', request)
+#             return redirect('playlists.html', request)
 
-def add_remove_songs(request, user_id):
-    user = get_object_or_404(UserEntity, id=user_id)
+# def add_remove_songs(request, user_id):
+#     user = get_object_or_404(UserEntity, id=user_id)
 
-    playlist_id = request.data.get('playlist_id')
-    playlist = get_object_or_404(Playlist, id=playlist_id)
+#     playlist_id = request.data.get('playlist_id')
+#     playlist = get_object_or_404(Playlist, id=playlist_id)
 
-    req_type = request.data.get('type')
+#     req_type = request.data.get('type')
 
-    if request.method == "POST":
+#     if request.method == "POST":
 
-        songs = Song.objects.all()
+#         songs = Song.objects.all()
 
-        if req_type == "add":
-            #songs = Song.objects.all()
+#         if req_type == "add":
+#             #songs = Song.objects.all()
 
-            selected_song_id = request.data.get('track_id')
-            selected_song = Song.object.get(id=selected_song_id)
+#             selected_song_id = request.data.get('track_id')
+#             selected_song = Song.object.get(id=selected_song_id)
 
-            playlist.songs.add(selected_song)
+#             playlist.songs.add(selected_song)
 
-        elif req_type == "remove":
-            selected_song_id = request.data.get('track_id')
-            selected_song = Song.object.get(id=selected_song_id)
+#         elif req_type == "remove":
+#             selected_song_id = request.data.get('track_id')
+#             selected_song = Song.object.get(id=selected_song_id)
 
-            playlist.songs.remove(selected_song)
-
-
-        return render(request, 'add_remove_songs.html', {'songs':songs})
-
-    return redirect('display_playlists', request)
-
-def edit_playlist(request, user_id):
-    user = get_object_or_404(UserEntity, id=user_id)
-
-    playlist_id = request.data.get('playlist_id')
-    playlist = get_object_or_404(Playlist, id=playlist_id)
-
-    req_type = request.data.get('type')
-
-    #playlists = Playlist.objects.all()
-
-    if request.method == "POST":
-        if req_type == "edit":
-            form = PlaylistForm(request.POST, instance=playlist)
-
-            if form.is_valid():
-                form.save()
-
-        elif req_type == "delete":
-            user.playlists.remove(playlist)
-
-        return redirect("display_all_playlists", request)
+#             playlist.songs.remove(selected_song)
 
 
-def about(request):
-    return render(request, "about.html", {'title': 'About'})
+#         return render(request, 'add_remove_songs.html', {'songs':songs})
+
+#     return redirect('display_playlists', request)
+
+# def edit_playlist(request, user_id):
+#     user = get_object_or_404(UserEntity, id=user_id)
+
+#     playlist_id = request.data.get('playlist_id')
+#     playlist = get_object_or_404(Playlist, id=playlist_id)
+
+#     req_type = request.data.get('type')
+
+#     #playlists = Playlist.objects.all()
+
+#     if request.method == "POST":
+#         if req_type == "edit":
+#             form = PlaylistForm(request.POST, instance=playlist)
+
+#             if form.is_valid():
+#                 form.save()
+
+#         elif req_type == "delete":
+#             user.playlists.remove(playlist)
+
+#         return redirect("display_all_playlists", request)

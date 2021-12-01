@@ -28,7 +28,7 @@ class Playlist(models.Model):
     playlist_id = models.SlugField(primary_key=True, max_length=100)
     playlist_name = models.TextField()
     followers = models.IntegerField()
-    owner_name = models.ForeignKey('users.UserEntity', on_delete=models.CASCADE)
+    creator = models.ForeignKey('users.UserEntity', on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now=True)
     playlist_link = models.TextField()
