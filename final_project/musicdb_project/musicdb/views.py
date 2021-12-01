@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 
 from musicdb.models import Playlist, Song
-from users.models import UserEntity
+from users.models import User
 
 from django.forms import ModelForm
 from .forms import PlaylistForm
@@ -45,7 +45,7 @@ class UserPlaylistView(ListView):
     slug_field = 'slug'
 
     def get_queryset(self):
-        user = get_object_or_404(UserEntity, user_id=self.kwargs.get('user_id'))
+        user = get_object_or_404(User, user_id=self.kwargs.get('user_id'))
         return Playlist.objects.filter(creator=user).order_by("-date_created")
 
 class PlaylistDetailView(DetailView):

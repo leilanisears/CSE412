@@ -1,23 +1,45 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from users.models import UserEntity
-from django.forms import ModelForm
-import string, random
-letters = string.ascii_lowercase
+from users.models import User
+from django.contrib.auth import authenticate
+
+#from users.models import UserEntity
+#from django.forms import ModelForm
+#import string, random
+#letters = string.ascii_lowercase
 
 #Create forms
 
-class NewUserForm(UserCreationForm):
-    user_id = ''.join(random.choice(letters) for i in range(20))
-    country = forms.CharField(max_length=100, help_text='Country')
-    display_name = forms.CharField(max_length=100, help_text='Display Name')
+class RegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'country', 'password1', 'password2', 'image']
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['image', 'username', 'first_name', 'last_name']
+
+    def clean_username(self):
+        user = self.cleaned_data['username']
+
+        try:
+            User.objects.exclude(pk.instance.pk).get(username=username)
+        except Account.DoesNotExist:
+            return username
+        raise forms.ValidationError('Username "%s" is already in use.' % username)
+
+class UserAuthenticationForm(forms.ModelForm):
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
     class Meta:
-        model = UserEntity
-        fields = ["USERNAME_FIELD", "display_name", "password1", "password2", "country"]
+        model = User
+        fields = ('username', 'password')
 
+    def clean(self):
+        if self.is_valid():
+            username = self.cleaned_data['username']
+            password = self.cleaned_data['password']
 
-class UserEntityForm(ModelForm):
-    class Meta:
-        fields = ['country', 'USERNAME_FIELD', 'PASSWORD_FIELD', 'display_name',]
-
+            if not authenticate(username=username, password=password):
+                raise forms.ValidationError("Invalid login.")

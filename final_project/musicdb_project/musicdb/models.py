@@ -22,13 +22,13 @@ class Song(models.Model):
     # For if we need to slug song primary key as well
     # def get_absolute_url(self):
     #     return reverse("playlist-detail", args=[self.song_id])
-    
+
 
 class Playlist(models.Model):
     playlist_id = models.SlugField(primary_key=True, max_length=100)
     playlist_name = models.TextField()
     followers = models.IntegerField()
-    creator = models.ForeignKey('users.UserEntity', on_delete=models.CASCADE)
+    creator = models.ForeignKey('users.User', on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now=True)
     playlist_link = models.TextField()

@@ -1,24 +1,24 @@
 from django.shortcuts import render, redirect
-from .forms import NewUserForm, UserEntityForm
+from .forms import RegistrationForm, UserUpdateForm
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from users.models import UserEntity
+from users.models import User
 #from musicdb.views import welcome
 
 # Create your views here.
 
 def register(request):
     if request.method == "POST":
-        form = NewUserForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful. You are now being redirected to home page!")
             return redirect("profile")
         messages.error(request, "Registration was unsuccessful. Invalid information provided.")
-    form = NewUserForm()
+    form = RegistrationForm()
     return render(request,"register.html", context={"register_form":form})
 
 @login_required
@@ -33,26 +33,26 @@ def logout(request, user_id):
 @login_required
 def profile(request):
     if request.method == 'POST':
-        u_form = UserEntityForm(request.POST, request.FILES, instance=request.user)
+        u_form = UserUpdateForm(request.POST, request.FILES, instance=request.user)
         if u_form.is_valid():
             u_form.save()
             messages.success(request, f'Profile Updated Successfully.')
             return redirect()
     else:
-        u_form = UserEntityForm(instance=request.user)
-    
+        u_form = UserUpdateForm(instance=request.user)
+
     context = {
         'u_form': u_form,
     }
-    
+
     return render(request, 'user.html', context)
 
 @login_required
-def follow_unfollow(request, user_id):
-    user = get_object_or_404(UserEntity, id=user_id)
+def follow_unfollow(request, username):
+    user = get_object_or_404(User, id=username)
 
-    other_user_id = request.data.get('user_id')
-    other_user = get_object_or_404(UserEntity, id=other_user_id)
+    other_user_id = request.data.get('username')
+    other_user = get_object_or_404(User, id=other_user_id)
 
     req_type = request.data.get('type')
 
@@ -60,7 +60,7 @@ def follow_unfollow(request, user_id):
         user.following.add(other_user)
         other_user.followers.add(user)
 
-        success_message = "You are now following " + other_user.display_name
+        success_message = "You are now following " + other_user.username
         messages.success(request, success_message)
 
         return redirect("display_profile")
@@ -83,8 +83,8 @@ def error_request(request):
     return render(request, "error_request.html", context)
 
 @login_required
-def delete_profile(request, user_id):
-    user = get_object_or_404(UserEntity, id=user_id)
+def delete_profile(request, username):
+    user = get_object_or_404(User, id=username)
 
     if request.user != user:
         return HttpResponseForbidden()
