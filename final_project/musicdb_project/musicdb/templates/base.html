@@ -8,14 +8,34 @@
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
             <!--<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>-->
-        <title>Site Home WIP</title>
+
+            <!--Display Title is supplied-->
+            {% if playlist.playlist_name %}
+            <title>{{ playlist.playlist_name }}</title>
+            {% else %}
+            <title>Project WIP</title>
+            {% endif %}
 
     </head>
 
     <body>
-
+      <header class="header fixed-top">
+        <h2 style="word-wrap: none;">
+          <a href="{% url 'home' %}" class="site-name">
+            <!--I can't think of good names... change this to whatever-->
+            <span>Spotiplaylist</span>
+          </a>
+        </h2>
+        <form class="search-bar" id="search" action="{% url 'search-playlists' %}" method="get">
+          <input name="q" class="search-input" type="search" placeholder="Search" />
+          <button type="submit" class="search-btn">
+            <img src="https://assets.stickpng.com/images/59cfc4d2d3b1936210a5ddc7.png" alt="Search Button" style="height: 16px; width: 16px;"/>
+          </button>
+        </form>
+      </header>
       {% include 'includes/messages.html' %}
-      {% block content %}{% endblock %}
+      {% block content %}
+      {% endblock content %}
 
     </body>
 

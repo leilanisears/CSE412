@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block content %}
 
+{% block content %}
 <body>
   <h1> {{ user.user_id }} {{ user.display_name }} </h1>
   {% for playlist in user.playlists.all %}
@@ -14,5 +14,5 @@
       <p>{{ song.artist_name }}</p>
     {% endfor %}
   {% endfor %}
-  {% endblock %}
 </body>
+{% endblock content %}

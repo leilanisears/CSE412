@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
 <div style="background-color: hsl(248, 20%, 28%, 1);">
   <section class="playlist-display">
-    <h3 style="color: white; padding-top: 0.5rem;">Recently Updated Playlists: </h3>
+    <h3 style="color: white; padding-top: 0.5rem;">Search Results: </h3>
 
-    {% for playlist in playlists %}
+    {% for playlist in object_list %}
     <a href="{% url 'playlist-detail' playlist.playlist_id %}" class="thumbnail-box">
       <img class="thumbnail-img" src="http://unsplash.it/250/150?gravity=center"/>
     </a>
@@ -19,5 +19,4 @@
     {% endfor %}
   </section>
 </div>
-<h1>Hi. This is the homepage. goodbye</h1>
 {% endblock content %}
