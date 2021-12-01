@@ -27,6 +27,8 @@ urlpatterns = [
     path('users/', include("users.urls")),
     path('contact/', include("contact.urls")),
     #path('search/', include("search.urls")),
+
+    path('', include('musicdb.urls')),
 ]
 
 if settings.DEBUG:
