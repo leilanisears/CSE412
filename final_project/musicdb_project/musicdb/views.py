@@ -9,20 +9,49 @@ from .forms import PlaylistForm
 
 from django.http import Http404, JsonResponse, HttpResponseForbidden
 
-from django.views.generic.list import ListView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 
 from . import apirequests
 import string, random
 
 #####################################################################
 
-class SearchView(ListView):
+class PlaylistView(ListView):
+    model = Playlist
+    template_name = 'home.html'
+    context_object_name = 'playlists'
+    ordering = ['-date_updated']
+    slug_url_kwarg = 'the_slug'
+    slug_field = 'slug'
+
+class PlaylistDetailView(DetailView):
+    model = Playlist
+    template_name = 'playlist_detail.html'
+    slug_url_kwarg = 'the_slug'
+    slug_field = 'slug'
+
+class SearchPlaylistView(ListView):
+    model = Playlist
+    template_name = 'search.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = set(Playlist.objects.filter(Q(track_name__icontains=query) | Q(artist_name__icontains=query)))
+        return object_list
+
+class SearchSongView(ListView):
     model = Song
     template_name = 'search.html'
     context_name = 'all_results'
 
     def get_queryset(self):
-        result = super(SearchView, self). get_queryset()
+        result = super(SearchSongView, self). get_queryset()
         query = self.request.GET.get('search')
 
         song = None
@@ -57,11 +86,11 @@ class SearchView(ListView):
                 pass
 
 # generates a randomized string for the playlist_id (primary key) to be indexed
-def generate_playlist_id():
-    letters = string.ascii_letters
-    letters += string.digits
+# def generate_playlist_id():
+#     letters = string.ascii_letters
+#     letters += string.digits
 
-    return ''.join(random.choice(letters) for i in range(20))
+#     return ''.join(random.choice(letters) for i in range(20))
 
 def display_all_playlists(request, user_id):
     user = get_object_or_404(UserEntity, id=user_id)
@@ -87,7 +116,7 @@ def create_playlist(request, user_id):
             form = PlaylistForm(request.POST)
 
             playlist = form.save(commit=False)
-            playlist.playlist_id = generate_playlist_id()
+            #playlist.playlist_id = generate_playlist_id()
             playlist.save()
 
             user.playlists.add(playlist)
@@ -146,3 +175,7 @@ def edit_playlist(request, user_id):
             user.playlists.remove(playlist)
 
         return redirect("display_all_playlists", request)
+
+
+def about(request):
+    return render(request, "about.html", {'title': 'About'})
