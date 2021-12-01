@@ -1,29 +1,23 @@
 {% extends 'base.html' %}
 
-{% block main %}
-    <div id="login">
-        <form class="form-horizontal" name="LoginForm" action="/login/" method="post">
+{% block content %}
+<div id="login">
+    <form method="POST">
         {% csrf_token %}
-        {% if next %}
-            <input type="hidden" name="next" value="{{ next }}" />
-        {% endif %}
-        <div class="control-group">
-            <label class="control-label" for="username">Username</label>
-            <div class="controls">
-                <input type="text" id="username" name="username"  placeholder="Username">
-            </div>
+        <!-- Again.. come up with something better and change this cause i hate it and its cringe but i cant do it-->
+        <fieldset class="border-bottom mb-4">Spotiplaylist Login</fieldset>
+        {{ form.as_p }}
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Log In</button>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="password">Password</label>
-            <div class="controls">
-                <input type="password" name="password" id="password" placeholder="Password">
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <button type="submit" class="btn">Login</button>
-            </div>
-        </div>
-        </form>
-    </div>
-{% endblock %}
+    </form>
+    <div class="border-top pt-2">
+        <small class="text-muted">
+            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+        </small>
+        <small class="text-muted ml-4" style="padding-left: 60px">
+            Need an Account? <a href="{% url 'register' %}">Sign Up</a>
+        </small>
+    </div> 
+</div>
+{% endblock content %}
