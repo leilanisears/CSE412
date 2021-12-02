@@ -7,7 +7,7 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Edit Account Information</legend>
+                <legend class="border-bottom mb-4" style="font-weight:bold;text-decoration:underline;font-size:30px;">Edit Account Information</legend>
                 {{ form|crispy}}
             </fieldset>
             <div>
