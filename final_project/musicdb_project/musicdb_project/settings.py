@@ -50,8 +50,8 @@ INSTALLED_APPS = [
     'contact.apps.ContactConfig',
     'home.apps.HomeConfig',
 
-    # middleware goes here
-
+    # 3rd party apps
+    'crispy_forms',
 
     # django apps
     'django.contrib.admin',
