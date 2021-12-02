@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
 from users import views as user_views
+from musicdb import views as music_views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -28,8 +29,10 @@ urlpatterns = [
     # If I have time to revamp users, I will be adding user views here
     path('register/', user_views.register, name='register'),
     path('u/', user_views.profile, name='user-profile'),
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
+    path('create/', music_views.PlaylistCreateView.as_view(template_name='playlist_create.html'), name='playlist-create'),
+    path("<str:username>/playlists", music_views.UserPlaylistView.as_view(), name="user-playlists"),
     #path('u/', include("users.urls")),
     path('contact/', include("contact.urls")),
     #path('search/', include("search.urls")),

@@ -40,16 +40,27 @@ ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
 # Application definition
 
 INSTALLED_APPS = [
+    # custom apps
+    # 'musicdb',
+    # 'users',
+    # 'contact',
+    # 'home',
+    'musicdb.apps.MusicdbConfig',
+    'users.apps.UsersConfig',
+    'contact.apps.ContactConfig',
+    'home.apps.HomeConfig',
+
+    # middleware goes here
+
+
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'musicdb',
-    'users',
-    'contact',
-    'home',
+
 ]
 
 MIDDLEWARE = [
@@ -79,6 +90,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 WSGI_APPLICATION = 'musicdb_project.wsgi.application'
 
