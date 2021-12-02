@@ -11,7 +11,7 @@
     </a>
     <div class="playlist-details">
       <a href="{% url 'playlist-detail' playlist.playlist_id %}" class="playlist-title">{{ playlist.title }}</a>
-      <a href="{% url 'user-playlists' playlist.creator.user_id %}" class="playlist-creator">{{ playlist.creator }}</a>
+      <a href="{% url 'user-playlists' playlist.creator.username %}" class="playlist-creator">{{ playlist.creator }}</a>
       <div class="playlist-metadata">
         <span>{{ playlist.date_updated }}</span>
       </div>
