@@ -38,11 +38,11 @@ class PlaylistView(ListView):
 
 class UserPlaylistView(ListView):
     model = Playlist
-    template_name = 'display_all.html'
+    template_name = 'user_profile.html'
     context_object_name = 'playlists'
     ordering = ['-date_updated']
     slug_url_kwarg = 'the_slug'
-    slug_field = 'slug'
+    slug_field = 'playlist_id'
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
@@ -117,7 +117,7 @@ class PlaylistUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     fields = ('playlist_name')
     template_name = 'playlist_update.html'
     slug_url_kwarg = 'the_slug'
-    slug_field = 'slug'
+    slug_field = 'playlist_id'
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
@@ -133,13 +133,28 @@ class PlaylistDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Playlist
     success_url = '/'
     slug_url_kwarg = 'the_slug'
-    slug_field = 'slug'
+    slug_field = 'playlist_id'
 
     def test_func(self):
         playlist = self.get_object()
         if self.request.user == playlist.creator:
             return True
         return False
+
+class PlaylistSelectView(LoginRequiredMixin, ListView):
+    model = Playlist
+    context_object_name = 'playlists'
+    template_name = 'playlist_select.html'
+    ordering = ['-date_updated']
+    slug_url_kwarg = 'the_slug'
+    slug_field = 'playlist_id'
+
+class PlaylistBuildView(LoginRequiredMixin, DetailView):
+    model = Playlist
+    context_object_name = 'playlists'
+    template_name = 'playlist_build.html'
+    slug_url_kwarg = 'the_slug'
+    slug_field = 'playlist_id'
 
 
 # generates a randomized string for the playlist_id (primary key) to be indexed

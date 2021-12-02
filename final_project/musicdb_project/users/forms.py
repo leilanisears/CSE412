@@ -18,13 +18,13 @@ class RegistrationForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['image', 'username', 'first_name', 'last_name']
+        fields = ['image', 'username', 'first_name', 'last_name', 'country']
 
     def clean_username(self):
         user = self.cleaned_data['username']
 
         try:
-            User.objects.exclude(pk.instance.pk).get(username=user)
+            User.objects.exclude(pk=self.instance.pk).get(username=user)
         except User.DoesNotExist:
             return user
         raise forms.ValidationError('Username "%s" is already in use.' % user)

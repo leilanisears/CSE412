@@ -41,7 +41,9 @@
             <img class="header-user-icon dropbtn" src="{{ user.image.url }}" alt="Account Settings" onclick="expandFunct()">
             <div class="dropdown-content" id="profile-dropdown">
               <!--<a href="{% url 'user-playlists' user.username %}">My Playlists</a>-->
+              <a href="{% url 'user-playlists' user.username %}">My Profile</a>
               <a href="{% url 'user-profile' %}">Edit Account</a>
+              <a href="{% url 'my-playlists' %}">Edit Playlists</a>
               <hr class="dropdown-divider">
               <a href="{% url 'logout' %}">Logout</a>
             </div>
@@ -52,7 +54,8 @@
           {% endif %}
         </div>
       </header>
-      <div class="behind-header">
+      <div class="behind-header"></div>
+      <div>
         {% include 'includes/messages.html' %}
         {% block content %}
         {% endblock content %}
