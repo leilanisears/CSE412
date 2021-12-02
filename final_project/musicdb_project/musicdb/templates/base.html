@@ -39,7 +39,7 @@
           <a href="{% url 'playlist-create' %}" class="header-btn">Create</a>
           <div class="dropdown">
             <img class="header-user-icon dropbtn" src="{{ user.image.url }}" alt="Account Settings" onclick="expandFunct()">
-            <div class="dropdown-content" id="account-dropdown">
+            <div class="dropdown-content" id="profile-dropdown">
               <!--<a href="{% url 'user-playlists' user.username %}">My Playlists</a>-->
               <a href="{% url 'user-profile' %}">Edit Account</a>
               <hr class="dropdown-divider">
