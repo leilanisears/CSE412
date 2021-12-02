@@ -54,7 +54,7 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True, primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    country = models.TextField(default=None)
+    country = models.CharField(default=None, max_length= 50)
     image = models.ImageField(default='avatars/default.png', upload_to='avatars')
 
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
