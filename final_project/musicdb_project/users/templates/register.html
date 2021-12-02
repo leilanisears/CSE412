@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <!-- template for login using the default django auth package -->
 <div class="register">
-    <h2>Register</h2>
     <form method="post">
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Register Now </legend>
-            {{ form.as_p}}
+            {{ form|crispy}}
         </fieldset>
         <div>
             <button type="submit" class="btn btn-primary btn-block btn-large">Register</button>
