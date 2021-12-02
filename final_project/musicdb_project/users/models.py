@@ -10,18 +10,21 @@ from PIL import Image
 # Create your models here.
 
 class AccountManager(BaseUserManager):
-    def create_user(self, username, first_name, last_name, password=None):
+    def create_user(self, username, first_name, last_name, country, password=None):
         if not username:
-            raise ValueError("Accounts must have a username")
+            raise ValueError('Users must have a username')
         if not first_name:
-            raise ValueError("Accounts must have a first name")
+            raise ValueError('Users must have a first name')
         if not last_name:
-            raise ValueError("Accounts must have a last name")
+            raise ValueError('Users must have a last name')
+        if not country:
+            raise ValueError('Users must have a country')
 
         user = self.model(
             username = username,
             first_name = first_name,
             last_name = last_name,
+            country = country,
         )
 
         user.set_password(password)
@@ -29,11 +32,13 @@ class AccountManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, user, first_name, last_name, password):
+    def create_superuser(self, user, first_name, last_name, country, password):
         user = self.create_user(
-            username = username,
+            username = user,
             first_name = first_name,
             last_name = last_name,
+            country = country,
+            password = password,
         )
 
         user.is_admin = True
@@ -49,19 +54,16 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True, primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    country = models.TextField()
-    image = models.ImageField(default=None, upload_to='profile_pics')
+    country = models.TextField(default=None)
+    image = models.ImageField(default='avatars/default.png', upload_to='avatars')
 
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
+    playlist_count = models.IntegerField(default=0)
 
-    likes = models.ForeignKey('musicdb.Song', on_delete=models.CASCADE, related_name='songs')
-    shares = models.ForeignKey('musicdb.Playlist', on_delete=models.CASCADE, related_name='playlists')
-    playlist_count = models.IntegerField()
-    playlists = models.ForeignKey('musicdb.Playlist', on_delete=models.CASCADE)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

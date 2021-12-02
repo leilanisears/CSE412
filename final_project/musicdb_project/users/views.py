@@ -1,34 +1,36 @@
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm, UserUpdateForm
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
-from users.models import User
+from .forms import RegistrationForm, UserUpdateForm
+from .models import User
 #from musicdb.views import welcome
 
 # Create your views here.
 
+# def register(request):
+#     if request.method == 'POST':
+#         form = RegistrationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             messages.success(request, 'Registration successful. You are now being redirected to home page!')
+#             return redirect('home')
+#         messages.error(request, 'Registration was unsuccessful. Invalid information provided.')
+#     else:
+#         form = RegistrationForm()
+#     return render(request,'register.html', {'form': form})
+
 def register(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Registration successful. You are now being redirected to home page!")
-            return redirect("profile")
-        messages.error(request, "Registration was unsuccessful. Invalid information provided.")
-    form = RegistrationForm()
-    return render(request,"register.html", context={"register_form":form})
-
-@login_required
-def login(request, user_id):
-    pass
-
-@login_required
-def logout(request, user_id):
-    pass
-
+            form.save()
+            messages.success(request, f'Your account has been created!')
+            return redirect('login')
+    else:
+        form = RegistrationForm()
+    return render(request, 'register.html', {'form': form})
 
 @login_required
 def profile(request):

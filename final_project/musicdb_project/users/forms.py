@@ -13,7 +13,7 @@ from django.contrib.auth import authenticate
 class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'country', 'password1', 'password2', 'image']
+        fields = ['username', 'first_name', 'last_name', 'country', 'password1', 'password2']
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
@@ -24,10 +24,10 @@ class UserUpdateForm(forms.ModelForm):
         user = self.cleaned_data['username']
 
         try:
-            User.objects.exclude(pk.instance.pk).get(username=username)
-        except Account.DoesNotExist:
-            return username
-        raise forms.ValidationError('Username "%s" is already in use.' % username)
+            User.objects.exclude(pk.instance.pk).get(username=user)
+        except User.DoesNotExist:
+            return user
+        raise forms.ValidationError('Username "%s" is already in use.' % user)
 
 class UserAuthenticationForm(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
