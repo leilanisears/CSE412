@@ -3,7 +3,7 @@
 {% block content %}
 <!-- template for login using the default django auth package -->
 <div class="register">
-    <h2>Register</h2>
+    <h2 style="text-align:center;text-decoration:underline;">Register</h2>
     <form method="post">
         {% csrf_token %}
         <fieldset class="form-group">
@@ -15,7 +15,7 @@
         </div>
     </form>
     <div class="border-top pt-3">
-        <small class="text-muted">
+        <small class="text-muted" style="padding-left:20px;">
             Already Have an Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
         </small>
     </div>

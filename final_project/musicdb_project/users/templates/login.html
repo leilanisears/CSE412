@@ -2,6 +2,7 @@
 
 {% block content %}
 <div id="login">
+    <h1 style="text-align:center;text-decoration:underline;">Login</h1>
     <form method="POST">
         {% csrf_token %}
         <!-- Again.. come up with something better and change this cause i hate it and its cringe but i cant do it-->
@@ -13,10 +14,10 @@
     </form>
     <div class="border-top pt-2">
         <small class="text-muted">
-            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+            <a style="padding-left:30px;" href="{% url 'password_reset' %}">Forgot Password?</a>
         </small>
-        <small class="text-muted ml-4" style="padding-left: 60px">
-            Need an Account? <a href="{% url 'register' %}">Sign Up</a>
+        <small class="text-muted ml-4" style="padding-left: 30px">
+            Need an Account? <a style="padding-left:30px;" href="{% url 'register' %}">Sign Up</a>
         </small>
     </div> 
 </div>

@@ -3,7 +3,7 @@
 {% block content %}
 <div style="background-color: hsl(248, 20%, 28%, 1);">
   <section class="playlist-display">
-    <h3 style="color: white; padding-top: 0.5rem;">Recently Updated Playlists: </h3>
+    <h3 style="color: white; padding-top: 0.5rem;padding-bottom:0.5rem;">Recently Updated Playlists: </h3>
 
     {% for playlist in playlists %}
     <a href="{% url 'playlist-detail' playlist.playlist_id %}" class="thumbnail-box">
