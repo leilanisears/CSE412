@@ -3,7 +3,7 @@
 {% block content %}
 <div class="mw6 center pa3 sans-serif">
     <h1 class="mb4">Username: {{ users.display_name | linebreaks }}</h1>
-    <header class="b mb2">User ID: {{ users.user_id }}</header>
+    <header class="b mb2">User ID: {{ users.username }}</header>
     {% for p in playlists %}
     <div class="pa2 mb3 striped--near-white">
         <div class="pl2">

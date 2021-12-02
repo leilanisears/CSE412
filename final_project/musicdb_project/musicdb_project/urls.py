@@ -32,7 +32,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('create/', music_views.PlaylistCreateView.as_view(template_name='playlist_create.html'), name='playlist-create'),
-    path("<str:username>/playlists", music_views.UserPlaylistView.as_view(), name="user-playlists"),
+    path("u/<str:username>/playlists", music_views.UserPlaylistView.as_view(), name="user-playlists"),
     #path('u/', include("users.urls")),
     path('contact/', include("contact.urls")),
     #path('search/', include("search.urls")),

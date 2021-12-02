@@ -45,14 +45,14 @@ class UserPlaylistView(ListView):
     slug_field = 'slug'
 
     def get_queryset(self):
-        user = get_object_or_404(User, user_id=self.kwargs.get('user_id'))
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Playlist.objects.filter(creator=user).order_by("-date_created")
 
 class PlaylistDetailView(DetailView):
     model = Playlist
     template_name = 'playlist_detail.html'
     slug_url_kwarg = 'the_slug'
-    slug_field = 'slug'
+    slug_field = 'playlist_id'
 
 class SearchPlaylistView(ListView):
     model = Playlist

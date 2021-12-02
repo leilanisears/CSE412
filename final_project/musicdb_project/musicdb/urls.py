@@ -15,9 +15,9 @@ from . import views
 urlpatterns = [
     path('', PlaylistView.as_view(), name='home'),
     path('about/', views.about, name='about'),
-    path('search/songs', SearchSongView.as_view(), name='search-songs'),
-    path('search/playlists', SearchPlaylistView.as_view(), name='search-playlists'),
-    path('playlist/<slug:playlist_id>/', PlaylistDetailView.as_view(), name='playlist-detail'),
+    path('search/songs/', SearchSongView.as_view(), name='search-songs'),
+    path('search/playlists/', SearchPlaylistView.as_view(), name='search-playlists'),
+    path('playlist/<slug:the_slug>/', PlaylistDetailView.as_view(), name='playlist-detail'),
     path('update/update?p=<playlist_id>/', PlaylistUpdateView.as_view(), name='playlist-update'),
     path('delete/delete?p=<playlist_id>/', PlaylistDeleteView.as_view(), name='playlist-delete'),
 
