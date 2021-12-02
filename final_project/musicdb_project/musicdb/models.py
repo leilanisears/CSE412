@@ -30,7 +30,7 @@ class Song(models.Model):
 
 class Playlist(models.Model):
     playlist_id = models.SlugField(primary_key=True, max_length=100)
-    playlist_name = models.TextField(default='My Playlist')
+    playlist_name = models.CharField(max_length=100)
     followers = models.IntegerField(default=0)
     creator = models.ForeignKey('users.User', on_delete=models.CASCADE)
     shares = models.ManyToManyField(User, blank=True, related_name='playlistShares')
@@ -38,7 +38,7 @@ class Playlist(models.Model):
 
     date_created = models.DateTimeField(default=timezone.now)
     date_updated = models.DateTimeField(auto_now=True)
-    playlist_link = models.TextField(default='https://spotify.com')
+    playlist_link = models.CharField(max_length=100)
     songs = models.ManyToManyField(Song, blank=True)
 
     def __str__(self):

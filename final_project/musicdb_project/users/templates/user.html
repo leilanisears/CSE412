@@ -1,6 +1,19 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
+
 {% block content %}
 <div>
-    <h1>{{ user_id }}'s Profile</h1>
+    <div class="update-account col-sm-6 col-sm-offset-3">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Edit Account Information</legend>
+                {{ form|crispy}}
+            </fieldset>
+            <div>
+                <button type="submit" class="btn btn-primary btn-block btn-large">Update</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock content %}

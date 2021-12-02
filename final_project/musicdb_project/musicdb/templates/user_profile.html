@@ -1,11 +1,12 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-<div style="background-color: hsl(248, 20%, 28%, 1);">
-  <div>
-    <h3 style="color: white; padding-top: 0.5rem; padding-left: 1rem;">Search Results:</h3>
+<div>
+  <h1> {{ user.username }}</h1>
+  <div style="background-color: hsl(248, 20%, 28%, 1);">
+    <h3 style="color: white; padding-top: 0.5rem; padding-left: 1rem;">User Playlists</h3>
     <section class="playlist-container">
-      {% for playlist in object_list %}
+      {% for playlist in playlists %}
       <article class="playlist-card">
         <a href="{% url 'playlist-detail' playlist.playlist_id %}">
           <div class="playlist-cover">
@@ -27,7 +28,7 @@
         </a>
       </article>
       {% endfor %}
-    </section>  
+    </section>
   </div>
 </div>
 {% endblock content %}

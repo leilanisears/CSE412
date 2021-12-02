@@ -222,6 +222,11 @@ fieldset {
     border-top: 1px solid var(--hairline-color);
 }
 
+.border-bottom mb-4 {
+    font-size: 30px;
+    padding-top: 50px;
+}
+
 blockquote {
     font-size: 11px;
     color: #777;
