@@ -105,7 +105,7 @@ class SearchSongView(ListView):
 
 class PlaylistCreateView(LoginRequiredMixin, CreateView):
     model = Playlist
-    fields = ('playlist_name')
+    fields = ('playlist_name', 'playlist_link')
     template_name = 'playlist_create.html'
 
     def form_valid(self, form):

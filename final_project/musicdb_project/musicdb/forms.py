@@ -7,4 +7,5 @@ name
 
 class PlaylistForm(forms.ModelForm):
     class Meta:
-        fields = ['playlist_name']
+        model = Playlist
+        fields = ('playlist_name', 'playlist_link')
