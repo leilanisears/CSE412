@@ -19,11 +19,11 @@
     </head>
 
     <body>
-      <header class="header fixed-top">
+      <header style="padding-left:50px;" class="header fixed-top">
         <h2 style="word-wrap: none;">
           <a href="{% url 'home' %}" class="site-name">
             <!--I can't think of good names... change this to whatever-->
-            <span style="padding-left:50px;">Spotiplaylist</span>
+            <span style="border-style:dashed;">Spotiplaylist</span>
           </a>
         </h2>
         <form class="search-bar" id="search" action="{% url 'search-playlists' %}" method="get">
