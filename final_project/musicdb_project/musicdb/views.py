@@ -9,7 +9,7 @@ from .forms import PlaylistForm
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from django.http import Http404, JsonResponse, HttpResponseForbidden
+from django.http import Http404, JsonResponse, HttpResponseForbidden, HttpResponse
 
 from django.views.generic import (
     ListView,
@@ -107,6 +107,8 @@ class PlaylistCreateView(LoginRequiredMixin, CreateView):
     model = Playlist
     fields = ('playlist_name', 'playlist_link')
     template_name = 'playlist_create.html'
+    slug_url_kwarg = 'the_slug'
+    slug_field = 'playlist_id'
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
@@ -114,7 +116,7 @@ class PlaylistCreateView(LoginRequiredMixin, CreateView):
 
 class PlaylistUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Playlist
-    fields = ('playlist_name')
+    fields = ('playlist_name',)
     template_name = 'playlist_update.html'
     slug_url_kwarg = 'the_slug'
     slug_field = 'playlist_id'
@@ -149,12 +151,34 @@ class PlaylistSelectView(LoginRequiredMixin, ListView):
     slug_url_kwarg = 'the_slug'
     slug_field = 'playlist_id'
 
-class PlaylistBuildView(LoginRequiredMixin, DetailView):
+class PlaylistBuildView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Playlist
+    fields = ('playlist_name', 'playlist_link', 'songs',)
     context_object_name = 'playlists'
     template_name = 'playlist_build.html'
     slug_url_kwarg = 'the_slug'
     slug_field = 'playlist_id'
+
+    def form_valid(self, form):
+        #playlist_id = form.cleaned_data['playlist_id']
+        song = form.cleaned_data['songs']
+
+        playlist = self.get_object()
+        playlist.save()
+
+        song_list = Song.objects.filter(pk__in=song)
+        for song in song_list:
+            playlist.songs.add(song)
+        
+        return super().form_valid(form)
+        #return HttpResponse(playlist.songs.all())
+
+    def test_func(self):
+        playlist = self.get_object()
+        if self.request.user == playlist.creator:
+            return True
+        return False
+    
 
 
 # generates a randomized string for the playlist_id (primary key) to be indexed

@@ -9,10 +9,10 @@ from users.models import User
 #user_entity = apps.get_model('users', 'UserEntity')
 
 class Song(models.Model):
-    song_id = models.TextField(primary_key = True)
-    song_artists = models.TextField()
-    song_name = models.TextField()
-    song_link = models.TextField()
+    song_id = models.CharField(primary_key = True, max_length=100)
+    song_artists = models.CharField(max_length=100)
+    song_name = models.CharField(max_length=100)
+    song_link = models.CharField(max_length=100)
 
     likes = models.ManyToManyField(User, blank=True, related_name='songLikes')
 

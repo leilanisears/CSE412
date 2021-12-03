@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseForbidden
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -7,19 +8,6 @@ from .models import User
 #from musicdb.views import welcome
 
 # Create your views here.
-
-# def register(request):
-#     if request.method == 'POST':
-#         form = RegistrationForm(request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             login(request, user)
-#             messages.success(request, 'Registration successful. You are now being redirected to home page!')
-#             return redirect('home')
-#         messages.error(request, 'Registration was unsuccessful. Invalid information provided.')
-#     else:
-#         form = RegistrationForm()
-#     return render(request,'register.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':
@@ -106,18 +94,3 @@ def delete_profile(request, username):
 #         }
 
 #         return render(request, 'display_profile.html', data)
-
-# def edit_profile(request, user_id):
-#     user = get_object_or_404(UserEntity, id=user_id)
-
-#     if request.user != user:
-#         return HttpResponseForbidden()
-
-#     form = UserEntityForm(request.POST, instance=user)
-
-#     if form.is_valid():
-#         user.save()
-#         return redirect('display_profile', request.user_id)
-
-#     messages.error(request, "There was an error while editing your profile.")
-#     return redirect('display_profile', request)

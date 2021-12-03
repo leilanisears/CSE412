@@ -10,21 +10,18 @@ from PIL import Image
 # Create your models here.
 
 class AccountManager(BaseUserManager):
-    def create_user(self, username, first_name, last_name, country, password=None):
+    def create_user(self, username, first_name, last_name, password=None):
         if not username:
             raise ValueError('Users must have a username')
         if not first_name:
             raise ValueError('Users must have a first name')
         if not last_name:
             raise ValueError('Users must have a last name')
-        if not country:
-            raise ValueError('Users must have a country')
 
         user = self.model(
             username = username,
             first_name = first_name,
             last_name = last_name,
-            country = country,
         )
 
         user.set_password(password)
@@ -32,12 +29,11 @@ class AccountManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, user, first_name, last_name, country, password):
+    def create_superuser(self, username, first_name, last_name, password):
         user = self.create_user(
-            username = user,
+            username = username,
             first_name = first_name,
             last_name = last_name,
-            country = country,
             password = password,
         )
 
@@ -51,10 +47,10 @@ class AccountManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
-    username = models.CharField(max_length=50, unique=True, primary_key=True)
+    username = models.TextField(max_length=50, unique=True, primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    country = models.CharField(default=None, max_length= 50)
+    country = models.CharField(default="United States", max_length= 50)
     image = models.ImageField(default='avatars/default.png', upload_to='avatars')
 
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
