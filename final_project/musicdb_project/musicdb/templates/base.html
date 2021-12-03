@@ -27,13 +27,14 @@
           </a>
         </h2>
         <form class="search-bar" id="search" action="{% url 'search-playlists' %}" method="get">
-          <input name="q" class="search-input" type="search" placeholder="Search" />
+          <input name="q" class="search-input" type="search" placeholder="Search Playlists" />
           <button type="submit" class="search-btn">
             <img src="https://assets.stickpng.com/images/59cfc4d2d3b1936210a5ddc7.png" alt="Search Button" style="height: 16px; width: 16px;"/>
           </button>
         </form>
         <div class="header-links">
           <a href="{% url 'about' %}" class="header-btn">About</a>
+          <a href="{% url 'search-songs' %}" class="header-btn">Songs</a>
           <!--Right side of header-->
           {% if user.is_authenticated %}
           <a href="{% url 'playlist-create' %}" class="header-btn">Create</a>

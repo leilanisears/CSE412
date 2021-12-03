@@ -1,12 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="{% url 'search' %}" method="get">
-  <input
-      type="search"
-      name="q"
-      placeholder="Search by song name or artist"
-      class="form-control"
-      />
-</form>
+<div style="margin:1rem;">
+  <h2>Search Songs</h2>
+  <h5>Songs are populated from Spotify</h5>
+  <form class="search-bar" id="search" action="{% url 'search-songs' %}" method="get">
+    <input name="q" class="search-input" type="search" placeholder="Search Songs" style="width:16rem; margin-left:-4rem;" />
+    <button type="submit" class="search-btn">
+      <img src="https://assets.stickpng.com/images/59cfc4d2d3b1936210a5ddc7.png" alt="Search Button" style="height: 16px; width: 16px;"/>
+    </button>
+  </form>
+</div>
+<div style="background-color: hsl(248, 20%, 28%, 1); height:40rem;">
+  <div>
+    <h3 style="color: white; padding-top: 0.5rem; padding-left: 1rem;">Search Results:</h3>
+    <section class="track-container" style="width:100%; margin:0rem;">
+      {% for song in songs %}
+      <a href="{{ song.song_link }}" class="track-link" style="width:100%;">
+        <div class="track-detail" >
+            <div class="track-data">
+                <h5 class="mb2" style="text-decoration: none; color:white;">Track: {{ song.song_name }}</h5>
+            </div>
+            <div class="track-data">
+                <h5 class="mb2" style="text-decoration: none; color:white;">Artist: {{ song.song_artists }}</h5>
+            </div>
+        </div>
+    </a>
+      {% endfor %}
+    </section>  
+  </div>
+</div>
 {% endblock content %}
+

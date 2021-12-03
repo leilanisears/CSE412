@@ -12,7 +12,7 @@ class Song(models.Model):
     song_id = models.CharField(primary_key = True, max_length=100)
     song_artists = models.CharField(max_length=100)
     song_name = models.CharField(max_length=100)
-    song_link = models.CharField(max_length=100)
+    song_link = models.CharField(max_length=1000)
 
     likes = models.ManyToManyField(User, blank=True, related_name='songLikes')
 
@@ -21,6 +21,9 @@ class Song(models.Model):
 
     def save (self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("song-search", args=[self.song_id])
 
 
     # For if we need to slug song primary key as well

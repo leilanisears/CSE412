@@ -1,17 +1,18 @@
 import requests
 import json
 
+# TEMPORARY CREDENTIAL HARD-CODING
+client_id = "87b9cbe45bf0454eb66c99e5a3ae1ddd"
+client_secret = "336ef5841cb64042ad2e5ebb2c867f8a"
 
 # reads client info from separate file
 def get_client_info():
-    with open("spotify_creds.json", "r") as file:
-        data = json.loads(file.read())
-        return data["client_id"], data["client_secret"]
+        return client_id, client_secret
 
 
 # generates the html code for a Spotify play button for a specific track
 def generate_play_button(track_id):
-    html = f'<iframe src="https://open.spotify.com/embed/track/{track_id}?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>'
+    html = f'https://open.spotify.com/embed/track/{track_id}?utm_source=generator'
     return html
 
 

@@ -19,8 +19,8 @@ from django.views.generic import (
     DeleteView
 )
 
-from . import apirequests
-import string, random
+from . import clientAPI
+import string, random, json
 
 #####################################################################
 
@@ -64,42 +64,38 @@ class SearchPlaylistView(ListView):
 class SearchSongView(ListView):
     model = Song
     template_name = 'search_songs.html'
-    context_name = 'all_results'
+    context_object_name = 'songs'
 
     def get_queryset(self):
-        result = super(SearchSongView, self). get_queryset()
-        query = self.request.GET.get('search')
+        query = self.request.GET.get('q')
 
-        song = None
+        songs = None
 
         if query:
-            try:
-                songs = Song.objects.filter(
-                    Q(track_name__icontains=query) |
-                    Q(artist_name__icontains=query)
-                )
-            except Song.DoesNotExist:
-                client = apirequests.APICall()
-                #token = client.get_access_token()
+            songs = set(Song.objects.filter(
+                Q(song_name__icontains=query) |
+                Q(song_artists__icontains=query)
+            ))
+            if len(songs) == 0:
+                client = clientAPI.APICall()
 
-                songs = json.load(client.get_song(token, query))
+                spotify_song = client.get_song(query)
 
-                for s in songs:
-                    new_song = Song()
+                artists = spotify_song.get("artists")
 
-                    new_song.song_id = s.get("id")
-                    new_song.song_artists = s.get("artists")
-                    new_song.song_name = s.get("name")
-                    new_song.song_link = s.get("link")
+                s = Song()
+                s.song_id = spotify_song.get("id")
+                s.song_artists = ', '.join(artists)
+                s.song_name = spotify_song.get("name")
+                s.song_link = spotify_song.get("link")
+                s.save()
 
-                    s.save()
+                songs = set(Song.objects.filter(
+                    Q(song_name__icontains=query) |
+                    Q(song_artists__icontains=query)
+                ))
 
-                songs = Song.objects.filter(
-                    Q(track_name__icontains=query) |
-                    Q(artist_name__icontains=query)
-                )
-
-                pass
+        return songs
 
 class PlaylistCreateView(LoginRequiredMixin, CreateView):
     model = Playlist
