@@ -27,7 +27,6 @@ import string, random
 
 def about(request):
     return render(request, "about.html", {'title': 'About'})
-
 class PlaylistView(ListView):
     model = Playlist
     template_name = 'home.html'
@@ -35,7 +34,6 @@ class PlaylistView(ListView):
     ordering = ['-date_updated']
     slug_url_kwarg = 'the_slug'
     slug_field = 'slug'
-
 class UserPlaylistView(ListView):
     model = Playlist
     template_name = 'user_profile.html'
@@ -47,13 +45,13 @@ class UserPlaylistView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Playlist.objects.filter(creator=user).order_by("-date_created")
-
 class PlaylistDetailView(DetailView):
     model = Playlist
     template_name = 'playlist_detail.html'
     context_object_name = 'playlist'
     slug_url_kwarg = 'the_slug'
     slug_field = 'playlist_id'
+
 class SearchPlaylistView(ListView):
     model = Playlist
     template_name = 'search_playlists.html'
@@ -134,6 +132,8 @@ class PlaylistUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 class PlaylistDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Playlist
     success_url = '/'
+    context_object_name = 'playlist'
+    template_name = 'playlist_confirm_delete.html'
     slug_url_kwarg = 'the_slug'
     slug_field = 'playlist_id'
 
@@ -160,10 +160,9 @@ class PlaylistBuildView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     slug_field = 'playlist_id'
 
     def form_valid(self, form):
-        #playlist_id = form.cleaned_data['playlist_id']
+        playlist = self.get_object()
         song = form.cleaned_data['songs']
 
-        playlist = self.get_object()
         playlist.save()
 
         song_list = Song.objects.filter(pk__in=song)
@@ -171,7 +170,6 @@ class PlaylistBuildView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             playlist.songs.add(song)
         
         return super().form_valid(form)
-        #return HttpResponse(playlist.songs.all())
 
     def test_func(self):
         playlist = self.get_object()

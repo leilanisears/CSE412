@@ -11,11 +11,21 @@
             </div>
         </div>
         <div class="playlist-metadata">
-        <h4 class="playlist-title">{{ playlist.playlist_name}}</h4>
-        </br>
-        <a href="{% url 'user-playlists' playlist.creator.username %}" class="playlist-creator">{{ playlist.creator.username }}</a>
-        </br>
+            <h4 class="playlist-title">{{ playlist.playlist_name}}</h4>
+            </br>
+            <a href="{% url 'user-playlists' playlist.creator.username %}" class="playlist-creator">{{ playlist.creator.username }}</a>
+            </br>
+            <!--Update/Delete Button for Owner-->
+            {% if playlist.creator == user %}
+            <div>
+                <div>
+                    <a href="{% url 'build-playlist' playlist.playlist_id %}">Edit</a>
+                    <a href="{% url 'playlist-delete' playlist.playlist_id %}">Delete</a>
+                </div>
+            </div>
+            {% endif %}
         </div>
+
     </article>
     <div class="mw6 center pa3 track-container">
         <h2 style="color:white">Track List:</h2>
@@ -23,10 +33,10 @@
         <a href="{{ song.song_link }}" class="track-link">
             <div class="track-detail">
                 <div class="track-data">
-                    <h5 class="mb2" style="text-decoration: none; color:white;"> Track: {{ song.song_name }}</h5>
+                    <h5 class="mb2" style="text-decoration: none; color:white;">Track: {{ song.song_name }}</h5>
                 </div>
                 <div class="track-data">
-                    <h5 class="mb2" style="text-decoration: none; color:white;"> Artist: {{ song.song_artists }}</h5>
+                    <h5 class="mb2" style="text-decoration: none; color:white;">Artist: {{ song.song_artists }}</h5>
                 </div>
             </div>
         </a>

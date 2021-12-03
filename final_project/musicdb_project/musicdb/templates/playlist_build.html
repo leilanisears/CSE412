@@ -6,11 +6,11 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <fieldset>
-            <legend>Create Playlist</legend>
+            <legend>Edit Playlist</legend>
             {{ form|crispy }}
         </fieldset>
         <div>
-            <button type="submit">Build</button>
+            <button type="submit">Build Playlist</button>
             <a href="{% url 'build-playlist' playlists.playlist_id %}">Cancel</a>
         </div>
     </form>

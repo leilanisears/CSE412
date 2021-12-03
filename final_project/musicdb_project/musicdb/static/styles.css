@@ -130,7 +130,7 @@
 .playlist-detail-card {
     --size: 200px;
     width: var(--size);
-    height: 250px;
+    height: 275px;
     padding: 1rem;
     background: rgb(58, 58, 58);
     transition: background 320ms;
