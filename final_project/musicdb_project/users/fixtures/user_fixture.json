@@ -1,0 +1,13 @@
+[
+  {
+    "model": "users.User",
+    "pk": "test_username",
+    "fields": {
+      "username": "test_username",
+      "first_name": "test",
+      "last_name": "user",
+      "country": "USA",
+      "date_joined": '08/10/2000'
+    }
+  }
+]

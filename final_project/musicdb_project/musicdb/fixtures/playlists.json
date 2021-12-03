@@ -1,0 +1,82 @@
+[
+   {
+      "model":"musicdb.Playlist",
+      "pk":1,
+      "fields":{
+         "playlist_id":"1561651651221",
+         "playlist_name":"abcdef",
+         "followers":"147",
+         "creator":"rmdehass",
+         "shares":"15",
+         "likes":"1504",
+         "date_created":"2011-07-29",
+         "date_updated":"2020-03-13",
+         "playlist_link":"waeoijfoijaweifjw",
+         "songs":"allstar"
+      }
+   },
+   {
+      "model":"musicdb.Playlist",
+      "pk":2,
+      "fields":{
+         "playlist_id":"6924541653626",
+         "playlist_name":"this playlist sucks",
+         "followers":"994",
+         "creator":"delbertd",
+         "shares":"192",
+         "likes":"6",
+         "date_created":"2013-06-30",
+         "date_updated":"2016-02-22",
+         "playlist_link":"15515fdafsf",
+         "songs":"rodeo"
+      }
+   },
+   {
+      "model":"musicdb.Playlist",
+      "pk":3,
+      "fields":{
+         "playlist_id":"7825234256234",
+         "playlist_name":"worst of the 90s",
+         "followers":"29",
+         "creator":"bash",
+         "shares":"242",
+         "likes":"1990",
+         "date_created":"2009-08-28",
+         "date_updated":"2013-05-20",
+         "playlist_link":"1vvsdvsddvv1",
+         "songs":"bring me to life"
+      }
+   },
+   {
+      "model":"musicdb.Playlist",
+      "pk":4,
+      "fields":{
+         "playlist_id":"3256489256312",
+         "playlist_name":"xlmnop",
+         "followers":"812",
+         "creator":"oweno2l",
+         "shares":"678",
+         "likes":"11241",
+         "date_created":"2014-04-17",
+         "date_updated":"2014-04-18",
+         "playlist_link":"dsavasdegbbr51",
+         "songs":"numb"
+      }
+   },
+   {
+      "model":"musicdb.Playlist",
+      "pk":5,
+      "fields":{
+         "playlist_id":"7634528756123",
+         "playlist_name":"arizona state",
+         "followers":"11497",
+         "creator":"mcrow49",
+         "shares":"2230",
+         "likes":"64379",
+         "date_created":"2018-09-30",
+         "date_updated":"2021-12-02",
+         "playlist_link":"wefwedii3nmkmkdmo",
+         "songs":"great value"
+      }
+   }
+]

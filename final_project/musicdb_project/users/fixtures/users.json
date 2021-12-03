@@ -1,0 +1,162 @@
+[
+   {
+      "model": "users.User",
+      "pk": "simsstacey",
+      "fields": {
+         "first_name": "Melissa",
+         "last_name": "Perkins",
+         "country": "Marshall Islands",
+         "password": "x+aX6RJy(9",
+         "is_admin": false,
+         "is_staff": false,
+         "is_superuser": false,
+         "is_active": false,
+         "date_joined": "1974-10-05",
+         "last_login": "1989-04-24"
+      }
+   },
+   {
+      "model": "users.User",
+      "pk": "fullerkenneth",
+      "fields": {
+         "first_name": "Andrew",
+         "last_name": "Turner",
+         "country": "Bermuda",
+         "password": "(!V&!Sz#2c",
+         "is_admin": false,
+         "is_staff": false,
+         "is_superuser": false,
+         "is_active": false,
+         "date_joined": "1999-11-07",
+         "last_login": "2010-11-14"
+      }
+   },
+   {
+      "model": "users.User",
+      "pk": "zachary82",
+      "fields": {
+         "first_name": "Erik",
+         "last_name": "Hayes",
+         "country": "Greece",
+         "password": "fFY0GcUh+l",
+         "is_admin": false,
+         "is_staff": false,
+         "is_superuser": false,
+         "is_active": false,
+         "date_joined": "1975-04-28",
+         "last_login": "1998-12-30"
+      }
+   },
+   {
+      "model": "users.User",
+      "pk": "bradleyrandall",
+      "fields": {
+         "first_name": "Philip",
+         "last_name": "Miller",
+         "country": "Reunion",
+         "password": "hUuehTfR%8",
+         "is_admin": false,
+         "is_staff": false,
+         "is_superuser": false,
+         "is_active": false,
+         "date_joined": "1999-08-20",
+         "last_login": "2016-01-06"
+      }
+   },
+   {
+      "model": "users.User",
+      "pk": "lkey",
+      "fields": {
+         "first_name": "Mary",
+         "last_name": "Kane",
+         "country": "Myanmar",
+         "password": "@30)lS+cd4",
+         "is_admin": false,
+         "is_staff": false,
+         "is_superuser": false,
+         "is_active": false,
+         "date_joined": "1986-01-02",
+         "last_login": "2018-10-12"
+      }
+   },
+   {
+      "model": "users.User",
+      "pk": "linda99",
+      "fields": {
+         "first_name": "Alisha",
+         "last_name": "Castro",
+         "country": "Turks and Caicos Islands",
+         "password": "v_SNqmYY^7",
+         "is_admin": false,
+         "is_staff": false,
+         "is_superuser": false,
+         "is_active": false,
+         "date_joined": "1977-07-20",
+         "last_login": "2021-11-15"
+      }
+   },
+   {
+      "model": "users.User",
+      "pk": "brianlarson",
+      "fields": {
+         "first_name": "Connor",
+         "last_name": "Rice",
+         "country": "Vietnam",
+         "password": "eQ!%C9FwyY",
+         "is_admin": false,
+         "is_staff": false,
+         "is_superuser": false,
+         "is_active": false,
+         "date_joined": "1992-08-31",
+         "last_login": "1997-06-30"
+      }
+   },
+   {
+      "model": "users.User",
+      "pk": "michelle19",
+      "fields": {
+         "first_name": "Rickey",
+         "last_name": "Humphrey",
+         "country": "Brazil",
+         "password": ")^tTt8wg77",
+         "is_admin": false,
+         "is_staff": false,
+         "is_superuser": false,
+         "is_active": false,
+         "date_joined": "1985-11-06",
+         "last_login": "1996-09-25"
+      }
+   },
+   {
+      "model": "users.User",
+      "pk": "sandraramos",
+      "fields": {
+         "first_name": "Carol",
+         "last_name": "Chambers",
+         "country": "Cote d'Ivoire",
+         "password": "&3@7a0SlIm",
+         "is_admin": false,
+         "is_staff": false,
+         "is_superuser": false,
+         "is_active": false,
+         "date_joined": "2001-05-04",
+         "last_login": "2010-04-04"
+      }
+   },
+   {
+      "model": "users.User",
+      "pk": "hpayne",
+      "fields": {
+         "first_name": "Dawn",
+         "last_name": "Wilson",
+         "country": "Haiti",
+         "password": "&mUgH)2Ia6",
+         "is_admin": false,
+         "is_staff": false,
+         "is_superuser": false,
+         "is_active": false,
+         "date_joined": "1980-04-07",
+         "last_login": "1990-03-11"
+      }
+   }
+]
