@@ -60,7 +60,7 @@
 }
 
 .behind-header {
-    margin-top: 5.7rem;
+    margin-top: 7rem;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 1rem;
@@ -124,6 +124,15 @@
     background: rgb(58, 58, 58);
     border-radius: 0.5rem;
     cursor: pointer;
+    transition: background 320ms;
+}
+
+.playlist-detail-card {
+    --size: 200px;
+    width: var(--size);
+    height: 250px;
+    padding: 1rem;
+    background: rgb(58, 58, 58);
     transition: background 320ms;
 }
 
@@ -237,4 +246,52 @@
     margin: 0 1.5rem;
     border-top: 1px solid white;
     margin-left: 1rem;
+}
+
+.playlist-detail {
+    margin: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    background-color: #242424;
+}
+
+.track-container {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.track-detail {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    border: black;
+    border-radius: 2px;
+}
+
+.track-data {
+    align-self: stretch;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.track-link {
+    text-decoration: none;
+    background-color: #777;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    width: 100%;
+}
+
+.track-link:hover {
+    background-color: rgb(99, 99, 99);
 }

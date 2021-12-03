@@ -1,16 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="mw6 center pa3 sans-serif">
-    {% for p in playlists %}
-    <div class="pa2 mb3 striped--near-white">
-        <div class="pl2">
-        <p class="mb2"> Creator: {{ p.creator.username }}</p>
-        <p class="mb2"> Date created: {{ p.date_created }}</p>
-        <p class="mb2"> Playlist link: {{ p.playlist_link }}</p>
-        <p class="mb2"> Songs: {{ p.songs }}</p>
+<div class="playlist-detail">
+    <article class="playlist-detail-card">
+        <div class="playlist-cover">
+            <img class="thumbnail-img" src="http://unsplash.it/200/200?gravity=center"/>
+            <div class="cover-text">
+                <h3 class="cover-label">Spotiplaylist</h3>
+                <h5 class="cover-sublabel">Community Playlist</h5>
+            </div>
         </div>
+        <div class="playlist-metadata">
+        <h4 class="playlist-title">{{ playlist.playlist_name}}</h4>
+        </br>
+        <a href="{% url 'user-playlists' playlist.creator.username %}" class="playlist-creator">{{ playlist.creator.username }}</a>
+        </br>
+        </div>
+    </article>
+    <div class="mw6 center pa3 track-container">
+        <h2 style="color:white">Track List:</h2>
+        {% for song in playlist.songs.all %}
+        <a href="{{ song.song_link }}" class="track-link">
+            <div class="track-detail">
+                <div class="track-data">
+                    <h5 class="mb2" style="text-decoration: none; color:white;"> Track: {{ song.song_name }}</h5>
+                </div>
+                <div class="track-data">
+                    <h5 class="mb2" style="text-decoration: none; color:white;"> Artist: {{ song.song_artists }}</h5>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock content %}

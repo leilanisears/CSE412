@@ -51,9 +51,9 @@ class UserPlaylistView(ListView):
 class PlaylistDetailView(DetailView):
     model = Playlist
     template_name = 'playlist_detail.html'
+    context_object_name = 'playlist'
     slug_url_kwarg = 'the_slug'
     slug_field = 'playlist_id'
-
 class SearchPlaylistView(ListView):
     model = Playlist
     template_name = 'search_playlists.html'
